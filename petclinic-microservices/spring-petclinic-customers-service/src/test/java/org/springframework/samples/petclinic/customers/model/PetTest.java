@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.customers.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
+import java.util.Date;
 public class PetTest {
     @Test
     public void testGetName(){
