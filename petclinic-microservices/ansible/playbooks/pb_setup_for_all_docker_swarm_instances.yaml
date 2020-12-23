@@ -1,6 +1,5 @@
 ---
-
-* hosts: all
+- hosts: all
   tasks:
   - name: update os
     yum:
@@ -24,31 +23,15 @@
     file:
       path: /bin/aws
       state: absent
-  - name: Download aws cli v2 installer
+  - name: download awscliv2 installer
     unarchive:
       src: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
       dest: /tmp
       remote_src: yes
       creates: /tmp/aws
       mode: 0755
-  - name: Run the installer.
+  - name: run the installer
     command:
     args:
       cmd: "/tmp/aws/install"
       creates: /usr/local/bin/aws
-  - name: install ecr credential helper
-    yum:
-      name: amazon-ecr-credential-helper
-      state: present
-   name: Create folder for config file of ecr cred helper
-    file:
-      path: /home/ec2-user/.docker
-      state: directory
-      owner: "ec2-user"
-      mode: "g+rwx"
-  - name: create config file with content for ecr creds 
-    copy:
-      content: '{"credsStore":"ecr-login"}'
-      dest: /home/ec2-user/.docker/config.json
-      owner: "ec2-user"
-      mode: "g+rwx"
